@@ -3,6 +3,7 @@ require 'stripe'
 require 'dotenv'
 require 'json'
 require 'encrypted_cookie'
+require 'awesome_print'
 
 Dotenv.load
 Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
@@ -27,6 +28,8 @@ post '/charge' do
       :country => 'CA',
       :email => 'bob@example.com'
     )
+
+    ap account
 
     charge = Stripe::Charge.create(
       :amount => params[:amount], # this number should be in cents
