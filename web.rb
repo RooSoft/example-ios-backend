@@ -34,7 +34,7 @@ post '/charge' do
       :customer => @customer.id,
       :source => source,
       :destination => account.id,
-      :application_fee: 299,
+      :application_fee => 299,
       :description => "Example Charge"
     )
   rescue Stripe::StripeError => e
