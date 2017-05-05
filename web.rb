@@ -23,6 +23,8 @@ post '/charge' do
 
   # Create the charge on Stripe's servers - this will charge the user's card
   begin
+    ap creating account
+
     account = Stripe::Account.create(
       :managed => false,
       :country => 'CA',
@@ -41,6 +43,7 @@ post '/charge' do
       :description => "Example Charge"
     )
   rescue Stripe::StripeError => e
+    ap e
     status 402
     return "Error creating charge: #{e.message}"
   end
