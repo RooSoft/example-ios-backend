@@ -32,6 +32,7 @@ post '/charge' do
       :description => "Example Charge"
     )
   rescue Stripe::StripeError => e
+    puts e.message
     status 402
     return "Error creating charge: #{e.message}"
   end
