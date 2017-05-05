@@ -22,17 +22,22 @@ post '/charge' do
 
   # Create the charge on Stripe's servers - this will charge the user's card
   begin
+    account = Stripe::Account.create(
+      :managed => true,
+      :country => 'CA',
+      :email => 'bob@example.com'
+    )
+
     charge = Stripe::Charge.create(
       :amount => params[:amount], # this number should be in cents
       :currency => "cad",
       :customer => @customer.id,
       :source => source,
-      :destination => 'bob@roosoft.com',
+      :destination => account.id,
       :application_fee => 299,
       :description => "Example Charge"
     )
   rescue Stripe::StripeError => e
-    puts e.message
     status 402
     return "Error creating charge: #{e.message}"
   end
