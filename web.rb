@@ -23,7 +23,7 @@ post '/charge' do
 
   # Create the charge on Stripe's servers - this will charge the user's card
   begin
-    ap creating account
+    ap 'creating account'
 
     account = Stripe::Account.create(
       :managed => false,
